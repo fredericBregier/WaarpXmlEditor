@@ -27,6 +27,7 @@ import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.EventObject;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -61,6 +62,7 @@ import java.awt.event.MouseEvent;
 
 public class FXApplet extends JApplet
 {
+	public static final Charset UTF8 = Charset.forName("UTF-8");
     class Btn extends JButton
     {
 
@@ -601,7 +603,7 @@ public class FXApplet extends JApplet
     	                return;
     	            out = new FileOutputStream(file);
     	            OutputFormat format = new OutputFormat(doc, "UTF-8", true);
-    	            java.io.Writer writer = new OutputStreamWriter(out);
+    	            java.io.Writer writer = new OutputStreamWriter(out, UTF8);
     	            XMLSerializer serial = new XMLSerializer(writer, format);
     	            serial.asDOMSerializer();
     	            serial.serialize(doc);
@@ -644,11 +646,11 @@ public class FXApplet extends JApplet
             httpConn.setRequestProperty("Content-Type", "text/plain");
             out = httpConn.getOutputStream();
             OutputFormat format = new OutputFormat(doc, "UTF-8", true);
-            java.io.Writer writer = new OutputStreamWriter(out);
+            java.io.Writer writer = new OutputStreamWriter(out, UTF8);
             XMLSerializer serial = new XMLSerializer(writer, format);
             serial.asDOMSerializer();
             serial.serialize(doc);
-            reader = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(httpConn.getInputStream(), UTF8));
             String message;
             String line;
             for(message = ""; (line = reader.readLine()) != null; message = message + line + "\n");
