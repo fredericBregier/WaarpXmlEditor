@@ -491,7 +491,7 @@ public class XAmple extends JFrame
 				model.setDocumentChanged(false);
 				xmlFileName = file.getName();
 				showXMLTitle();
-				History childHistory = history.getFirstChild();
+				History childHistory = history.firstChild();
 				if (childHistory != null)
 				{
 					childHistory.put(file.getAbsolutePath());
@@ -566,7 +566,7 @@ public class XAmple extends JFrame
 
 	boolean loadXMLDocument(File file)
 	{
-		History childHistory = history.getFirstChild();
+		History childHistory = history.firstChild();
 		try {
 			URL url = file.toURI().toURL();
 			List lostElements =

@@ -85,7 +85,7 @@ public class History
     return child;
   }
 
-  public History getFirstChild()
+  public History firstChild()
   {
     if (items == null && items.size() == 0)
       return null;
