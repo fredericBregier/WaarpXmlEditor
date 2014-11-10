@@ -31,100 +31,100 @@ import javax.swing.tree.TreeNode;
  */
 public class GgFTree extends FTree {
 
-	/**
+    /**
      * 
      */
-	private static final long serialVersionUID = -208048327893735151L;
+    private static final long serialVersionUID = -208048327893735151L;
 
-	/**
-	 * @param root
-	 */
-	public GgFTree(TreeNode root) {
-		super(root);
-	}
+    /**
+     * @param root
+     */
+    public GgFTree(TreeNode root) {
+        super(root);
+    }
 
-	/**
+    /**
      * 
      */
-	public GgFTree() {
-		this(null);
-	}
+    public GgFTree() {
+        this(null);
+    }
 
-	// Change print on main window
-	void drawTree(Graphics g)
-	{
-		Rectangle r = g.getClipBounds();
-		if (r == null)
-			r = new Rectangle(getSize());
-		g.setColor(bgColor);
-		g.fillRect(r.x, r.y, r.width, r.height);
-		if (r.y < 20)
-		{
-			char c[] = {
-					'X', 'M', 'L', ' ', 'E', 'd', 'i', 't', 'o', 'r',
-					' ', 'D', 'e', 'm', 'o', '.', ' ', ' ', 'F', 'e',
-					'l', 'i', 'x', ' ', 'G', 'o', 'l', 'u', 'b', 'o',
-					'v', ',', ' ', '2', '0', '0', '3'
-			};
-			String s = new String(c);
-			s = "XML GoldenGate Editor: F Golubov & F Bregier 2010";
-			g.setColor(Color.white);
-			g.drawString(s, 11, 14);
-			g.setColor(Color.black);
-			g.drawString(s, 10, 13);
-		}
-		if (itemsCount == 0)
-		{
-			return;
-		} else
-		{
-			firstIndex = findItemIndex(firstIndex, r.y)[1];
-			int lastIndex = findItemIndex(firstIndex, (r.y + r.height) - 1)[1];
-			drawArea(g, firstIndex, lastIndex, r);
-			repainted = true;
-			return;
-		}
-	}
+    // Change print on main window
+    void drawTree(Graphics g)
+    {
+        Rectangle r = g.getClipBounds();
+        if (r == null)
+            r = new Rectangle(getSize());
+        g.setColor(bgColor);
+        g.fillRect(r.x, r.y, r.width, r.height);
+        if (r.y < 20)
+        {
+            char c[] = {
+                    'X', 'M', 'L', ' ', 'E', 'd', 'i', 't', 'o', 'r',
+                    ' ', 'D', 'e', 'm', 'o', '.', ' ', ' ', 'F', 'e',
+                    'l', 'i', 'x', ' ', 'G', 'o', 'l', 'u', 'b', 'o',
+                    'v', ',', ' ', '2', '0', '0', '3'
+            };
+            String s = new String(c);
+            s = "XML GoldenGate Editor: F Golubov & F Bregier 2010";
+            g.setColor(Color.white);
+            g.drawString(s, 11, 14);
+            g.setColor(Color.black);
+            g.drawString(s, 10, 13);
+        }
+        if (itemsCount == 0)
+        {
+            return;
+        } else
+        {
+            firstIndex = findItemIndex(firstIndex, r.y)[1];
+            int lastIndex = findItemIndex(firstIndex, (r.y + r.height) - 1)[1];
+            drawArea(g, firstIndex, lastIndex, r);
+            repainted = true;
+            return;
+        }
+    }
 
-	private int[] findItemIndex(int index, int y)
-	{
-		if (index >= itemsCount)
-			index = itemsCount - 1;
-		Item item = (Item) items.elementAt(index);
-		if (y >= item.y)
-		{
-			for (; index < itemsCount; index++)
-			{
-				item = (Item) items.elementAt(index);
-				if (y < item.y + cellGUI.getRowHeight(this, item.node))
-					if (y >= item.y)
-						return (new int[] {
-								index, index
-						});
-					else
-						return (new int[] {
-								index - 1, index
-						});
-			}
+    private int[] findItemIndex(int index, int y)
+    {
+        if (index >= itemsCount)
+            index = itemsCount - 1;
+        Item item = (Item) items.elementAt(index);
+        if (y >= item.y)
+        {
+            for (; index < itemsCount; index++)
+            {
+                item = (Item) items.elementAt(index);
+                if (y < item.y + cellGUI.getRowHeight(this, item.node))
+                    if (y >= item.y)
+                        return (new int[] {
+                                index, index
+                        });
+                    else
+                        return (new int[] {
+                                index - 1, index
+                        });
+            }
 
-			return (new int[] {
-					itemsCount - 1, itemsCount
-			});
-		}
-		for (; index > 0; index--)
-		{
-			item = (Item) items.elementAt(index);
-			if (y >= item.y)
-				if (y < item.y + cellGUI.getRowHeight(this, item.node))
-					return (new int[] {
-							index, index
-					});
-				else
-					return (new int[] {
-							index, index + 1
-					});
-		}
+            return (new int[] {
+                    itemsCount - 1, itemsCount
+            });
+        }
+        for (; index > 0; index--)
+        {
+            item = (Item) items.elementAt(index);
+            if (y >= item.y)
+                if (y < item.y + cellGUI.getRowHeight(this, item.node))
+                    return (new int[] {
+                            index, index
+                    });
+                else
+                    return (new int[] {
+                            index, index + 1
+                    });
+        }
 
-		return new int[2];
-	}
+        return new int[2];
+    }
 }
